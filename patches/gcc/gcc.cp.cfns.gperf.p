@@ -1,33 +1,40 @@
-Index: gcc/cp/cfns.gperf
-===================================================================
---- gcc/cp/cfns.gperf	(revision 259222)
-+++ gcc/cp/cfns.gperf	(working copy)
-@@ -18,12 +18,26 @@
- <http://www.gnu.org/licenses/>.  */
+2015-08-06  Mike Frysinger  <vapier@gentoo.org>
+
+	* cfns.gperf [__GNUC__, __GNUC_STDC_INLINE__]: Apply the
+	__gnu_inline__ attribute.
+	* cfns.h: Regenerated.
+---
+ gcc/cp/cfns.gperf | 3 +++
+ gcc/cp/cfns.h     | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/gcc/cp/cfns.gperf b/gcc/cp/cfns.gperf
+index 68acd3d..953262f 100644
+--- gcc/cp/cfns.gperf
++++ gcc/cp/cfns.gperf
+@@ -22,6 +22,9 @@ __inline
+ static unsigned int hash (const char *, unsigned int);
  #ifdef __GNUC__
  __inline
-+#else
-+#ifdef __cplusplus
-+inline
-+#if defined __GNUC_STDC_INLINE__ || defined __GNUC_GNU_INLINE__
++#ifdef __GNUC_STDC_INLINE__
 +__attribute__ ((__gnu_inline__))
++#endif
  #endif
--static unsigned int hash (const char *, unsigned int);
-+#endif
-+#endif
-+static unsigned int hash (const char *, GPERF_LEN_TYPE);
- #ifdef __GNUC__
- __inline
-+#if defined __GNUC_STDC_INLINE__ || defined __GNUC_GNU_INLINE__
-+__attribute__ ((__gnu_inline__))
- #endif
--const char * libc_name_p (const char *, unsigned int);
-+#else
-+#ifdef __cplusplus
-+inline
-+#endif
-+#endif
-+const char * libc_name_p (const char *, GPERF_LEN_TYPE);
+ const char * libc_name_p (const char *, unsigned int);
  %}
- %%
- # The standard C library functions, for feeding to gperf; the result is used
+diff --git a/gcc/cp/cfns.h b/gcc/cp/cfns.h
+index 1c6665d..6d00c0e 100644
+--- gcc/cp/cfns.h
++++ gcc/cp/cfns.h
+@@ -53,6 +53,9 @@ __inline
+ static unsigned int hash (const char *, unsigned int);
+ #ifdef __GNUC__
+ __inline
++#ifdef __GNUC_STDC_INLINE__
++__attribute__ ((__gnu_inline__))
++#endif
+ #endif
+ const char * libc_name_p (const char *, unsigned int);
+ /* maximum key range = 391, duplicates = 0 */
+-- 
+2.4.4

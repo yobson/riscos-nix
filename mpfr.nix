@@ -20,6 +20,7 @@ let
       automake111 autoconf264 gcc10 m4 rogmp
     ];
     hardeningDisable = ["format"];
+    dontDisableStatic = true;
 
     configureFlags =
       [ "--disable-shared"

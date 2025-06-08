@@ -12,11 +12,14 @@
         automake111    = callPackage ./automake.nix {};
         robinutils     = callPackage ./binutils.nix {};
         rogccSrc       = callPackage ./gcc-src.nix  {};
-        rogccBoot      = callPackage ./gcc-bootstrap.nix      {};
+        rogccLibs      = callPackage ./gcc-libs.nix {};
         rogmp          = callPackage ./gmp.nix      {};
         rompfr         = callPackage ./mpfr.nix     {};
         rompc          = callPackage ./mpc.nix      {};
-        defaultPackage = rogccBoot;
+        roppl          = callPackage ./mpc.nix      {};
+        rocloog        = callPackage ./mpc.nix      {};
+        rogcc          = callPackage ./gcc.nix      {};
+        defaultPackage = rogcc;
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             robinutils

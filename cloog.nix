@@ -1,5 +1,5 @@
 { pkgs, fetchurl, lib
-, automake111
+, automake111, rogmp, roppl
 , useCloog ? false
 }:
 
@@ -9,26 +9,25 @@ in
 
 let
   self = with pkgs; (overrideCC stdenv gcc10Stdenv).mkDerivation rec {
-    pname = "gmp-static";
-    version = "5.0.1";
+    pname = "cloog-static";
+    version = "0.15.11";
     src = fetchurl {
-      url = "https://gmplib.org/download/gmp-${version}/gmp-${version}.tar.bz2";
-      hash = "sha256-oqYQ8B/TKY3AjIe/MEmMJAJZDhvLIn/ECxXubSgJOfs=";
+      url = "ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-ppl-${version}.tar.gz";
+      hash = "";
     };
 
     buildInputs = with pkgs; [
-      automake111 autoconf264 gcc10 m4
+      automake111 autoconf264 gcc10 m4 rogmp
     ];
     hardeningDisable = ["format"];
     dontDisableStatic = true;
 
-    patchFlags = [ "-p0" ];
-    patches = [
-      ./patches/gmp/mpn.arm.invert_limb.asm.p
-    ];
     configureFlags =
       [ "--disable-shared"
-        "--enable-cxx"
+        "--with-gmp=${rogmp}"
+        "--with-bits=gmp"
+        "--with-ppl=${roppl}"
+        "--with-host-libstdcxx='-lstdc++'"
       ];
 
     enableParallelBuilding = true;

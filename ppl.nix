@@ -1,5 +1,5 @@
 { pkgs, fetchurl, lib
-, automake111
+, automake111, rogmp
 , useCloog ? false
 }:
 
@@ -9,26 +9,24 @@ in
 
 let
   self = with pkgs; (overrideCC stdenv gcc10Stdenv).mkDerivation rec {
-    pname = "gmp-static";
-    version = "5.0.1";
+    pname = "ppl-static";
+    version = "1.2";
     src = fetchurl {
-      url = "https://gmplib.org/download/gmp-${version}/gmp-${version}.tar.bz2";
-      hash = "sha256-oqYQ8B/TKY3AjIe/MEmMJAJZDhvLIn/ECxXubSgJOfs=";
+      url = "https://www.bugseng.com/external/ppl/download/ftp/releases/${version}/ppl-${version}.tar.gz";
+      hash = "";
     };
 
     buildInputs = with pkgs; [
-      automake111 autoconf264 gcc10 m4
+      automake111 autoconf264 gcc10 m4 rogmp
     ];
     hardeningDisable = ["format"];
     dontDisableStatic = true;
 
-    patchFlags = [ "-p0" ];
-    patches = [
-      ./patches/gmp/mpn.arm.invert_limb.asm.p
-    ];
     configureFlags =
       [ "--disable-shared"
-        "--enable-cxx"
+        "--disable-watchdog"
+        "--with-gnu-ld"
+        "--with-gmp=${rogmp}"
       ];
 
     enableParallelBuilding = true;
