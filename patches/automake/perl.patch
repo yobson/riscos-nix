@@ -1,0 +1,11 @@
+--- aclocal.orig	2025-05-19 21:08:03.846361899 +0200
++++ aclocal.in	2025-05-19 21:09:54.440846525 +0200
+@@ -45,6 +45,8 @@
+ use File::stat;
+ use Cwd;
+ 
++sub scan_file;
++
+ # Some globals.
+ 
+ # We do not operate in threaded mode.
