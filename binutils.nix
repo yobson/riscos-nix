@@ -1,5 +1,5 @@
 { pkgs, fetchurl, lib
-, automake111
+, automake111, libtool242
 , disableMultilib ? false 
 }:
 
@@ -16,7 +16,7 @@ let
       hash = "sha256-5ejFvpZk5/f5bg0JkZEQq1rVl3lPWxgJhxF3oPDxQTc=";
     };
 
-    buildInputs = with pkgs; [automake111 autoconf264 gcc10 m4 libbfd];
+    buildInputs = with pkgs; [automake111 autoconf264 gcc10 m4 libbfd libtool242];
 
     prePatch = ''
       cp -r ${./files/binutils}/* .
@@ -61,5 +61,7 @@ let
     '';
 
     enableParallelBuilding = true;
+  hardeningDisable = ["format"];
+  dontDisableStatic = true;
   };
 in self

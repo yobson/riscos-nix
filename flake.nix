@@ -10,14 +10,15 @@
       packages = rec {
         riscosTargetTriple = "arm-unknown-riscos";
         automake111    = callPackage ./automake.nix {};
+        libtool242     = callPackage ./libtool.nix  {};
         robinutils     = callPackage ./binutils.nix {};
         rogccSrc       = callPackage ./gcc-src.nix  {};
         rogccLibs      = callPackage ./gcc-libs.nix {};
         rogmp          = callPackage ./gmp.nix      {};
         rompfr         = callPackage ./mpfr.nix     {};
         rompc          = callPackage ./mpc.nix      {};
-        roppl          = callPackage ./mpc.nix      {};
-        rocloog        = callPackage ./mpc.nix      {};
+        roppl          = callPackage ./ppl.nix      {};
+        rocloog        = callPackage ./cloog.nix    {};
         rogcc          = callPackage ./gcc.nix      {};
         defaultPackage = rogcc;
         devShell = pkgs.mkShell {

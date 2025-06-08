@@ -13,7 +13,7 @@ let
     version = "1.2";
     src = fetchurl {
       url = "https://www.bugseng.com/external/ppl/download/ftp/releases/${version}/ppl-${version}.tar.gz";
-      hash = "";
+      hash = "sha256-a8Nt1Kh6vEKdj5wAxT4zTlBBqbCFfPwA261u8UKUqsg=";
     };
 
     buildInputs = with pkgs; [
