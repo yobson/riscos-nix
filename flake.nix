@@ -12,18 +12,19 @@
         automake111    = callPackage ./automake.nix {};
         libtool242     = callPackage ./libtool.nix  {};
         robinutils     = callPackage ./binutils.nix {};
-        rogccSrc       = callPackage ./gcc-src.nix  {};
-        rogccLibs      = callPackage ./gcc-libs.nix {};
         rogmp          = callPackage ./gmp.nix      {};
         rompfr         = callPackage ./mpfr.nix     {};
         rompc          = callPackage ./mpc.nix      {};
         roppl          = callPackage ./ppl.nix      {};
         rocloog        = callPackage ./cloog.nix    {};
         rogcc          = callPackage ./gcc.nix      {};
-        defaultPackage = rogcc;
+        gccWrap        = callPackage ./gccWrap.nix  {};
+        asasm          = callPackage ./asasm/default.nix   {};
+        elf2aif        = callPackage ./elf2aif/default.nix {};
+        defaultPackage = gccWrap;
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            robinutils
+          nativeBuildInputs = with pkgs; [
+            robinutils gccWrap elf2aif
           ];
         };
       };

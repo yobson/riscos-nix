@@ -153,10 +153,20 @@ let
         #"--enable-checking=release"
         "--enable-languages=c,c++"
         "--enable-checking=release"
+        "AR_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-ar"
+        "AS_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-as"
+        "LD_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-ld"
+        "NM_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-nm"
+        "OBJDUMP_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-objdump"
+        "RANLIB_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-ranlib"
+        "READELF_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-readelf"
+        "STRIP_FOR_TARGET=${robinutils}/bin/arm-unknown-riscos-strip"
       ]
       ++ optional disableMultilib "--disable-multilib";
 
     enableParallelBuilding = true;
+    dontFixup = true;
     dontStrip = true;
+    dontPatchELF = true;
   };
 in self
