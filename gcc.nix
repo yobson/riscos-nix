@@ -111,12 +111,12 @@ let
       ./patches/gcc/gcc.doc.gcc.texi.p
     ];
     preConfigure = ''
+      chmod -R +w .
       ( autogen Makefile.def )
       ( autoconf )
       ( cd libcpp && ACLOCAL='aclocal -I .. -I ../config' autoreconf -v )
       ( cd libiberty && ACLOCAL='aclocal -I .. -I ../config' autoreconf -v )
       ( cd libstdc++-v3 && ACLOCAL='aclocal -I .. -I ../config' autoreconf -v )
-      chmod -R +w libunixlib
       patchShebangs --build libunixlib/gen-auto.pl
       echo PATCHED
       ./libunixlib/gen-auto.pl
@@ -157,10 +157,6 @@ let
       ++ optional disableMultilib "--disable-multilib";
 
     enableParallelBuilding = true;
-    installTargets = [ "install" ];
-
-    # Don't strip bootstrap compilers, sometimes causes issues for later stages
     dontStrip = true;
-
   };
 in self
