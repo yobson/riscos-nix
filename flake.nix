@@ -49,8 +49,8 @@
           robinutils gccWrap elf2aif cmunge mkresfs
         ];
       };
-      overlay = final: prev: {
-        riscosPkgs = riscosPkgs;
+      overlays.default = final: prev: {
+        riscosPkgs = self.riscosPkgs.${system};
       };
 
       defaultPackage = riscosTools.gccWrap;
