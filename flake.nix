@@ -28,7 +28,7 @@
         inherit system;
         crossSystem = {
           system = "arm-none-elf";
-          config = "arm-unknown-riscos-elf";
+          config = "arm-unknown-riscos-none";
         };
         overlays = [
           (final: prev: {
