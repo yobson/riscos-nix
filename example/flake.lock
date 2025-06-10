@@ -38,17 +38,14 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1749593652,
-        "narHash": "sha256-JGHAFmPCz19cHoYWcGjXjt+QgKjCjFN8SzK4DgJxA5o=",
-        "owner": "yobson",
-        "repo": "riscos-nix",
-        "rev": "2d3b637c732e41c7116564f1dcd4275654fb18b6",
-        "type": "github"
+        "lastModified": 0,
+        "narHash": "sha256-4C5KmJ2lUYoO5Y8jkl9iJrnOOw9GtrQ1sRaSXNZ2pes=",
+        "path": "../.",
+        "type": "path"
       },
       "original": {
-        "owner": "yobson",
-        "repo": "riscos-nix",
-        "type": "github"
+        "path": "../.",
+        "type": "path"
       }
     },
     "root": {

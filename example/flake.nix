@@ -7,7 +7,7 @@
     utils.url = "github:numtide/flake-utils";
 
     # Point to your toolchain flake. This can be a local path or a git URL.
-    riscos-nix.url = "github:yobson/riscos-nix";
+    riscos-nix.url = "path:../.";
   };
 
   outputs = { self, nixpkgs, utils, riscos-nix }:
@@ -15,7 +15,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ riscos-nix.overlay ];
+          overlays = [ riscos-nix.overlays.${system}.default ];
         };
       in
       {

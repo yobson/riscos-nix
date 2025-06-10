@@ -27,8 +27,8 @@
       riscosPkgs = import nixpkgs {
         inherit system;
         crossSystem = {
-          system = "arm-unknown-riscos";
-          config = "arm-unknown-riscos-none";
+          system = "arm-none-elf";
+          config = "arm-unknown-riscos";
         };
         overlays = [
           (final: prev: {
