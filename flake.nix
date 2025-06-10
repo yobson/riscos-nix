@@ -19,12 +19,13 @@
         rocloog        = callPackage ./cloog.nix    {};
         rogcc          = callPackage ./gcc.nix      {};
         gccWrap        = callPackage ./gccWrap.nix  {};
-        asasm          = callPackage ./asasm/default.nix   {};
         elf2aif        = callPackage ./elf2aif/default.nix {};
+        cmunge         = callPackage ./cmunge/default.nix {};
+        mkresfs        = callPackage ./mkresfs/default.nix {};
         defaultPackage = gccWrap;
         devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            robinutils gccWrap elf2aif
+          nativeBuildInputs = [
+            robinutils gccWrap elf2aif cmunge mkresfs
           ];
         };
       };

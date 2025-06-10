@@ -1,4 +1,0 @@
-; RUNOPT: --apcs=/interwork
-	AREA	CodeINTERWORK, CODE
-	ASSERT	{INTER}
-	END
