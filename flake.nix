@@ -6,8 +6,8 @@
   outputs = { self, nixpkgs, utils }: utils.lib.eachDefaultSystem (system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
-      callPackage = pkgs.lib.callPackageWith (pkgs // packages);
-      packages = rec {
+      callPackage = pkgs.lib.callPackageWith (pkgs // riscosTools);
+      riscosTools = rec {
         riscosTargetTriple = "arm-unknown-riscos";
         automake111    = callPackage ./automake.nix {};
         libtool242     = callPackage ./libtool.nix  {};
@@ -22,13 +22,38 @@
         elf2aif        = callPackage ./elf2aif/default.nix {};
         cmunge         = callPackage ./cmunge/default.nix {};
         mkresfs        = callPackage ./mkresfs/default.nix {};
-        defaultPackage = gccWrap;
-        devShell = pkgs.mkShell {
-          nativeBuildInputs = [
-            robinutils gccWrap elf2aif cmunge mkresfs
-          ];
-        };
       };
-    in packages
+
+      riscosPkgs = import nixpkgs {
+        inherit system;
+        crossSystem = {
+          system = "arm-unknown-riscos";
+          config = "arm-unknown-riscos-none";
+        };
+        overlays = [
+          (final: prev: {
+            stdenv = prev.stdenv.override {
+              cc = riscosTools.gccWrap;
+              binutils = riscosTools.robinutils;
+              binutils-unwrapped = riscosTools.robinutils;
+            };
+          })
+        ];
+      };
+    in {
+      packages   = riscosTools;
+      riscosPkgs = riscosPkgs;
+
+      devShell = pkgs.mkShell {
+        nativeBuildInputs = with riscosTools; [
+          robinutils gccWrap elf2aif cmunge mkresfs
+        ];
+      };
+      overlay = final: prev: {
+        riscosPkgs = riscosPkgs;
+      };
+
+      defaultPackage = riscosTools.gccWrap;
+    }
   );
 }
